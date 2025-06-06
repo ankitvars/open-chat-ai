@@ -28,7 +28,7 @@ export class Assistant {
 
   async *chatStream(content, history) {
     try {
-      const stream = await this.#client.beta.chat.completions.stream({
+      const stream = await this.#client.chat.completions.stream({
         model: this.#model,
         messages: [...history, { role: "user", content }],
         stream: true,
