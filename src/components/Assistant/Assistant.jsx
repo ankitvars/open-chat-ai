@@ -52,11 +52,9 @@ export function Assistant({ onAssistantChange }) {
           <option value="anthropicai:claude-4.0">Claude 4.0 Sonnet</option>
         </optgroup>
 
-        <optgroup label="X AI">
-          <option value="xai:grok-3" disabled>
-            Grok 3
-          </option>
-        </optgroup>
+        {/* <optgroup label="X AI">
+          <option value="xai:grok-3">Grok 3</option>
+        </optgroup> */}
       </select>
     </div>
   );
