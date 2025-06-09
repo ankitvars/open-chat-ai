@@ -43,15 +43,32 @@ export class Assistant {
   }
 
   #parseError(error) {
-    if (error.response) {
+    if (error.response && error.response.data && error.response.data.error) {
+      // OpenAI API error with details
+      return {
+        message:
+          error.response.data.error.message ||
+          `HTTP Error: ${error.response.status} - ${error.response.statusText}`,
+        code: error.response.data.error.code,
+        type: error.response.data.error.type,
+      };
+    } else if (error.response) {
       // Server responded with a status code outside 2xx range
-      return `HTTP Error: ${error.response.status} - ${error.response.statusText}`;
+      return {
+        message: `HTTP Error: ${error.response.status} - ${error.response.statusText}`,
+      };
     } else if (error.request) {
       // No response was received
-      return "Network Error: No response received from the server.";
+      return {
+        message: "Network Error: No response received from the server.",
+      };
+    } else if (typeof error === "string") {
+      return { message: error };
+    } else if (error && error.message) {
+      return { message: error.message };
     } else {
       // Something else happened
-      return `Error: ${error.message}`;
+      return { message: "Unknown error occurred." };
     }
   }
 }

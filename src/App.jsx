@@ -37,7 +37,14 @@ const App = () => {
 
   // Send message and stream response
   const sendMessage = async (content) => {
-    if (!assistant) return;
+    if (!assistant || typeof assistant.chatStream !== "function") {
+      addMessage({
+        role: "assistant",
+        content:
+          "Sorry, this assistant is not available or not properly configured.",
+      });
+      return;
+    }
 
     addMessage({ role: "user", content });
     setIsLoading(true);
@@ -65,8 +72,13 @@ const App = () => {
     } catch (error) {
       console.error("Error during streaming:", error);
       addMessage({
-        role: "system",
-        content: error?.message || "Something went wrong. Please try again.",
+        role: "assistant",
+        content:
+          error?.message ||
+          (typeof error === "string"
+            ? error
+            : JSON.stringify(error) ||
+              "Something went wrong. Please try again."),
       });
       setIsLoading(false);
       setIsStreaming(false);

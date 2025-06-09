@@ -37,9 +37,14 @@ export class Assistant {
       const [, outerErrorJSON] = error?.message?.split(" . ");
       const outerErrorObject = JSON.parse(outerErrorJSON);
       const innerErrorObject = JSON.parse(outerErrorObject?.error?.message);
-      return innerErrorObject?.error;
+      return {
+        message:
+          innerErrorObject?.error ||
+          outerErrorObject?.error?.message ||
+          error?.message,
+      };
     } catch (parseError) {
-      return error;
+      return { message: error?.message || "Unknown error occurred." };
     }
   }
 }

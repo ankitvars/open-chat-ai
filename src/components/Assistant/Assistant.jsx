@@ -41,21 +41,15 @@ export function Assistant({ onAssistantChange }) {
         </optgroup>
 
         <optgroup label="Open AI">
-          <option value="openai:gpt-4o-mini" disabled>
-            GPT-4o mini
-          </option>
+          <option value="openai:gpt-4o-mini">GPT-4o mini</option>
         </optgroup>
 
         <optgroup label="DeepSeek AI">
-          <option value="deepseekai:deepseek-chat" disabled>
-            DeepSeek-V3
-          </option>
+          <option value="deepseekai:deepseek-chat">DeepSeek-V3</option>
         </optgroup>
 
         <optgroup label="Anthropic AI">
-          <option value="anthropicai:claude-4.0" disabled>
-            Claude 4.0 Sonnet
-          </option>
+          <option value="anthropicai:claude-4.0">Claude 4.0 Sonnet</option>
         </optgroup>
 
         <optgroup label="X AI">
